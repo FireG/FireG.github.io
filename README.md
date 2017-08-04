@@ -1,22 +1,21 @@
 # 🏆 – A Blog Theme for Jekyll
-Trophy is a blog theme for Jekyll built using HTML, Sass, and JavaScript (no jQuery). External stylesheets and libraries included are Google Fonts, Font Awesome, Normalize.CSS, Rellax, and WOW.js.
-Trophy is also available in [Ghost](https://github.com/thomasvaeth/trophy-ghost).
+Trophy is a blog theme for Jekyll built using HTML, Sass, and JavaScript (no jQuery). External stylesheets and libraries included are Google Fonts, Font Awesome, Normalize.CSS, and WOW.js.
 
 ## Screenshots
 Blog Page (Posts)
-![Blog Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-1.png "Desktop screenshot")
+![Blog Page](https://github.com/thomasvaeth/trophy/blob/master/_screenshots/screenshot-1.png "Desktop screenshot")
 
 Blog Page (Categories)
-![Blog Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-2.png "Desktop screenshot")
+![Blog Page](https://github.com/thomasvaeth/trophy/blob/master/_screenshots/screenshot-2.png "Desktop screenshot")
 
 Post Page (Mast)
-![Post Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-3.png "Desktop screenshot")
+![Post Page](https://github.com/thomasvaeth/trophy/blob/master/_screenshots/screenshot-3.png "Desktop screenshot")
 
 Post Page (Profile & Footer)
-![Post Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-4.png "Desktop screenshot")
+![Post Page](https://github.com/thomasvaeth/trophy/blob/master/_screenshots/screenshot-4.png "Desktop screenshot")
 
 Archive Page
-![Archive Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-5.png "Desktop screenshot")
+![Archive Page](https://github.com/thomasvaeth/trophy/blob/master/_screenshots/screenshot-5.png "Desktop screenshot")
 
 ## Installation
 All dependencies are saved in the ````Gemfile````. Run ````bundle install```` (Install [Bundler](http://bundler.io/) if it is not already) after cloning the repo.
@@ -66,9 +65,11 @@ I made everything as easy as possible to edit. Most things can be found in the `
 
 
 #### Build Settings
-    exclude: ["_screenshots", "Gemfile", "Gemfile.lock", "LICENSE.txt", "README.md"]
+    include: ["_categories"]
+    exclude: []
     permalink: /:year/:month/:day/:title/
 
+* ````include```` - Folders that are not automatically included in Jekyll
 * ````exclude```` - Folders that are excluded from `_site_`
 * ````permalink```` - URL structure of blog posts
 
@@ -92,12 +93,27 @@ This is the YAML front matter block for blog posts.
 * ````image```` - The blog theme was designed for 2000x1200px images (optimize your images because this is a picture heavy theme)
 * ````image-sm```` - Optional field for card layouts for image optimization and page speed (designed for 500x300px images)
 
+### _categories
+    ---
+    layout: default
+    title: New Category
+    description:
+    permalink: /category/new-category/
+    ---
+    {% include category.html %}
+
+Jekyll does not have anything built in for categories, so I made making new categories as simple as possible.
+* ````layout```` - This field will always be default
+* ````title```` - Name of the category
+* ````description```` - Optional field for SEO (recommended to not go over 160 characters)
+* ````permalink```` - URL for the category
+
 ## Upcoming Additions
 * Page transitions
 * More styled elements for blog posts
 
 ## Issues
-Please submit any issues [here](https://github.com/thomasvaeth/trophy-jekyll/issues).
+Please submit any issues [here](https://github.com/thomasvaeth/trophy/issues).
 
 ## License
 Trophy is licensed under the MIT License.

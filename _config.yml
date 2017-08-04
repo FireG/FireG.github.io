@@ -1,26 +1,31 @@
 # Site settings
-email: 
-baseurl: ""
+email: thomas.vaeth@gmail.com
+baseurl: "/trophy-jekyll"
 paginate: 5
 paginate_path: "/blog/page-:num"
 google_analytics: 
 
 # SEO settings
-title: FireG
-description: 不至于
-url: ""
-twitter_username: 
-default_img: 
+title: Trophy
+description: Trophy is a blog theme for Jekyll by Thomas Vaeth in Seattle, Washington.
+url: "http://thomasvaeth.com"
+twitter_username: thomasvaeth
+default_img: https://unsplash.it/2000/1200?image=1058
 
 # Profile settings
-name: Profile Name
-profile_img: 
-profile: 
+name: Thomas Vaeth
+profile_img: https://unsplash.it/2000/1200?image=447
+profile: Thomas Vaeth was born in New York, raised in Pennsylvania, and transplanted in Washington. He was a biochemist, but now he's a web developer at Urban Influence. He's also semi-decent at table tennis.
 social:
-  github: 
+  github: https://github.com/thomasvaeth
+  codepen: http://codepen.io/thomasvaeth/
+  linkedin: https://www.linkedin.com/in/thomasvaeth
+  twitter: https://twitter.com/thomasvaeth
+  facebook: https://www.facebook.com/thomas.vaeth
+  instagram: https://www.instagram.com/thomas.vaeth/
 
 # Build settings
-exclude: ["_screenshots", "Gemfile", "Gemfile.lock", "LICENSE.txt", "README.md"]
+exclude: ["_screenshots", "Gemfile", "Gemfile.lock", "README.md"]
 markdown: kramdown
 permalink: /:year/:month/:day/:title/
 
