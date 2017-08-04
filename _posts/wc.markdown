@@ -1,0 +1,522 @@
+---
+layout: post
+title: "Craft Beer"
+date: 2017-08-04
+categories:
+  -blog
+description: 
+image: http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&hs=0&pn=4&spn=0&di=39019418400&pi=0&rn=1&tn=baiduimagedetail&is=1955191877%2C780622086&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=1903284583%2C2406455080&os=3503812799%2C405940964&simid=0%2C0&adpicid=0&lpn=0&ln=1983&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=17&oriquery=&objurl=http%3A%2F%2Fimg.bimg.126.net%2Fphoto%2FoM_UO94T-HaQIQLuhdULSA%3D%3D%2F5774177672242663144.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fks52_z%26e3B8mn_z%26e3Bv54AzdH3Fyt4jg37AzdH3Fks52AzdH3FfpwptvAzdH3F8l98dnablda8898l9n90llaAzdH3F&gsm=&rpstart=0&rpnum=0
+image-sm: http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=风景&step_word=&hs=0&pn=4&spn=1&di=39019418400&pi=0&rn=1&tn=baiduimagedetail&is=1955191877%2C780622086&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=1903284583%2C2406455080&os=3503812799%2C405940964&simid=0%2C0&adpicid=0&lpn=0&ln=1983&fr=&fmq=1459502303089_R&fm=&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=17&oriquery=&objurl=http%3A%2F%2Fimage.tianjimedia.com%2FuploadImages%2F2011%2F286%2FE27LF6AIAG2W.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fks52_z%26e3B8mn_z%26e3Bv54AzdH3Fyt4jg37AzdH3Fks52AzdH3FfpwptvAzdH3F8l98dnablda8898l9n90llaAzdH3F&gsm=0&rpstart=0&rpnum=0
+---
+######1. 了解 Objective-C 语言的起源
+   Objective-C 语言使用”消息结构”而非”函数调用”.Objective-C 语言由 Smalltalk演化而来,后者是消息类型语言的鼻祖.编译器甚至不关心接收消息对象的何种类型.接收消息的对象问题也要在运行时处理,其过程叫做”动态绑定”.
+    Objective-C为 C 语言添加了面向对象特性,是其超类. Objective-C 使用动态绑定的消息结构,也就是说,在运行时才会检查对象类型.接收一条消息后,究竟应执行何种代码,有运行期环境而非编译器决定.理解 C 语言的核心有助于写好 Objective-C 程序.尤其是掌握内存模型与指针.
+
+######2. 在类的头文件中尽量少引用其他头文件
+   Objective-C 语言编写类的标准行为:以类名做文件名,分别闯将两个文件,有文件后缀用. h,实现文件后缀用. m.
+在开发中有时候我们会在. h 文件中引入很多用不到的内容,这当然会增加编译时间.除非有必要,否则不要引入头文件,一般来说,某个类的头文件中使用向前声明来体积别的类,并在实现文件中引入哪些类的头文件,这样做可以尽量降低类之间的耦合.有时无法使用前声明,比如要声明某个类遵循意向协议,这种情况下,尽量把 “该类遵循某协议”的这条声明移至 class=continuation 分类中,如果不行的话,就把协议单独存放在一个头文件中,然后将其引入.
+
+######3. 多用字面量语法,少用与之等价的方法
+    NSArray *arr = [NSArray arrayWithObjects:@"num1",@"num2",@"num3", nil];
+    NSArray *arr = @[@"num1",@"num2",@"num3”];
+字面量语法创建字符串,数组,数值,字典.与穿件此类对象的常规方法相比,这么做更加简明扼要.
+
+注意事项:
+- 除了字符串以外,所创建的类必须属于 Foundation 框架才行,如果自定义了这些类的子类,则无法用字面量语法创建其对象.
+- 穿件的数组或字典时,若值有 nil, 则会抛出异常.因此,务必确保值中不含 nil.
+######4. 多用类型常量,少用# deine 预处理指令
+不要用预处理指令定义常量,这样定义出来的常量不含类型信息,编译器只会在编译前根据执行查找与替换操作,即使有人重新定义了常量值,编译器也不会产生井道信息,这将导致应用程序常量值不一致.
+
+```#define DefinePerson @"DefinePersonStr"
+static NSString *const PersonConstant = @"PersonConstantStr” ;
+```
+
+但是我个人认为其实,还是#define用的多, 开发避免不了使用 pch文件.  如果有强迫症的同学,定义常量就想使用 staitc,extren,const这些关键字.那我建议新建一个专门存放这些常量的类,然后在 pch 中导入这个类.
+* static 修饰符意味着该变量尽在定义此变量的单元中可见
+* extern 全局变量
+
+```
+Person.h
+#import <Foundation/Foundation.h>
+static NSString *const PersonConstant;
+@interface Person : NSObject
+@end
+
+Person.m
+#import "Person.h"
+static NSString *const PersonConstant = @"PersonConstantStr";
+@implementation Person
+@end
+
+.pch
+#define DefineStr @"DefineStr"
+#import "Person.h"
+#endif
+```
+######5. 用枚举表示状态,选项,状态码
+应该用枚举来表示状态机的状态,传递给方法的选项以及状态码等值,给这些值起个易懂的名字
+```
+enum PersonEnum{
+    PersonEnumNum1,
+    PersonEnumNum2,
+    PersonEnumNum3,
+};
+typedef enum PersonEnum PersonState;
+```
+######6. 理解属性这一概念
+ 属性是 Objective-C 的一项特性,用于封存对象中的数据.
+属性特质:原子性 读写权限
+内存管理语义
+- assign 这是方法只会执行针对纯量类型(CGFloat,NSInteger)的简单赋值操作
+- strong 此特质表明该属性定义一种拥有关系,为这种属性设置新值时,这只方法会先保存新值,并释放旧值
+- weak 此特质表明属性定义了一种”非拥有关系”,为这种属性设置新值是,设置方法既不保留新值,也不释放旧值.此特质同 assign 类似,然而在属性所指对象遭到摧毁时,属性值会清空
+- unsafe_unretainde 此特质与 assign 相同,它适用于对象类型,该特质表达一种"非拥有关系”,当目标对象遭到摧毁时,属性不会自动清空,因为它是不安全的,这一点与 weak 的区别
+- copy 此特质所表达的所属关系与 strong 类似,然而设置方法并不保留新值,而是将其拷贝,多用于 NSString.
+
+
+######7. 在对象内部尽量直接访问实例变量
+直接访问实例变量的速度比较快,因为不经过 Objective-C 方法派发,编译器所生成的代码会直接访问保存催下实例量的那块内存.
+直接访问实例变量时,不会调用设置方法,这就绕过了相关属性所定义的内存管理语义.
+
+
+######8. 理解"对象等同性”这一概念  
+根据等同性来比较对象是一个非常有用的功能,不过,按照==操作符比较出来的结果未必是我们想要的,因为该操作比较的事两个指针本身,而不是其所指的对象.应该使用 NSObject 协议中的声明的”isEqual”方法来判断两个对象的等同性,一般来说两个类型不同的对象总是不相等的.直接比较字符串的时候 isEqual 比 isEqualToString慢,因为前者还要执行额外步骤.
+
+######9. 以"类族模式"隐藏实现细节
+“类族”是一种很用用的模式,可以隐藏抽象基类背后实现的细节. 这是一种”工厂模式”.比如iOS 用户界面框架 UIKit 中就有一个名为 UIButton 的类.想创建按钮,需要调用下面这个类方法.
++(UIButton*)buttonWithType:(UIButtonType)type;
+我到是认为,作者想告诉我我们要好好封装代码,这个地方没啥好说的.
+
+######10. 在既有类中使用关联对象存放自定义数据
+有时需要在对象中存放相关信息,这是我们通常会从对象所属的类中继承一个子类,然后改用这个子类对象.然而并非所有情况下都这么做,有时候类的实例可能是由某种机制所创建的,而开发者无法令这种机制创建出自己所写的实例. Objective-C 中有意向强大的特性可以解决问题,这就是关联对象. 
+
+######11. 理解objc_msgSend的作用
+用Objetive-C的术语来说，这叫做“消息传递”。这里说的是运行时。
+
+######12. 理解消息转发机制
+当对象接收到无法解读的消息后，就会启动消息转发机制，程序员可经此过程告诉对象应该图和处理未知消息。这里说的是运行时。
+
+######13. 用方法调配技术调试黑盒方法
+运行期间，可以向类中新增或替换选择子所对应的方法实现。
+使用另一份实现来替换原有的方法实现，这道工序叫做方法调配，开发者常用此技术想原有实现中添加新功能。
+一般来说，只有调试程序的时候才需要运行期修改方法实现，这种做法不易滥用。这里说的是运行时。
+
+######14. 理解类对象的用意
+每个Objective-C对象实例都是指向某块内存数据的指针，如果把对象所需的内存分配到栈上编译器就会报错
+每个对象结构体的首个成员是Class类的变量，该变量定义了对象所属的类，通常称为isa指针。
+```
+typedef struct objc_class *class
+struct objc_class{
+    Class isa;
+    Class super_class;
+    const char* name;
+    long version;
+    long info;
+    long instance_size;
+    struct objc_ivar_list *ivars;
+    struct objc_method_list *ivars;
+    struct objc_cache *cache;
+    struct objc_protocol_list protocols;
+}
+```
+此结构体存放类的元数据，例如类的实例实现了几个方法，具备多少个实例变量等信息。次结构体的首个变量也是isa指针，这说明Class本身亦为Objctive-C对象。结构体里还有个变量叫做super_class,它定义本类的超类，类对象所属的类型（isa指针所指向的类型）是另外一个类，叫做元类，用来标书类本身所具备的元数据。类方法就定义于此处，因为这些方法可以理解成类对象的实例方法，每个类仅有一个类对象，每个类对象仅有一个与之相关的元类。   （元数据，就是这个类的数据。）
+isKindOfClass：能够判断对象是否为某类或其派生类的实例
+isMemberOfClass: 能够判断出对象是否为某个特定类的实例
+
+
+###### 15. 用前缀避免命名空间冲突
+这个没啥可说的
+
+
+###### 16. 提供全能初始化方法
+这个没啥可说的
+
+
+######17. 实现description方法
+调试程序时经常需要打印并查看对象信息。description 很实用。
+```
+Person.h
+#import <Foundation/Foundation.h>
+@interface Person : NSObject
+@property(nonatomic,assign)int age;
+@property(nonatomic ,copy)NSString* name;
+@end
+
+Person.m
+#import "Person.h"
+@implementation Person
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"name %@ , age %d", self.name, self.age];
+}
+@end
+```
+description写出想要的属性， 在ViewController打印 Person 对象 Person的相关属性就会出现在控制台。
+
+######18. 尽量使用不可变对象
+这个没啥可说的
+######19. 使用清晰而协调的全名方式
+这个没啥可说的
+######20. 为私有方法名加前缀
+这个没啥可说的
+
+######21. 理解Objective-C错误模型
+NSError的用法更加灵活，因此经由此对象，我们可以把导致错误的原因汇报给调用者。
+* NSError domain(错误范围，其类型为字符串)
+          错误发生的范围，也就是产生错误的根源，通常用一个特有的全局变量来定义，比方说 “处理URL子系统”从URL的解析获取数据时如果出错了，那么就会使用NSURLErrorDomain来表示错误范围
+* Error code(错误码，其类型为整数)
+          独有的错误代码，用以指明在某个范围内具体发生了何种错误。某个特性范围内可能会发生一系列相关错误，这些错误情况通常采用enum来定义。例如，当HTTP请求出错时，可能会把HTTP状态码设为错误码
+*    User info(用户信息，其类型为字典)
+          有关错误的额外信息，其中或许包含一段“本地化的描述”或许还含有导致错误发生的另外一个错误，经由此种信息，可将相关错误串成一条“错误链”
+```
+@try {
+        NSString *str = @"wotaxiwa";
+        NSString *strErr = [str substringFromIndex:100];
+        NSLog(@"%@",str);
+    } @catch (NSException *exception) {
+       
+        NSLog(@"ERROR:     %@",exception);
+    } @finally {
+        NSLog(@"%s",__func__);
+    }
+```
+如果出现exception，异常后面的代码将不会继续执行
+
+
+######22. 理解NSCopying协议
+* copy方法实际上是调用 -(id)copyWithZone:(NSZone*)zone; 实现copy操作，  如果想对自己的类支持拷贝并且做额外操作，那就要实现NSCopying协议此的方法。
+          为何出现NSZone呢，以前开发程序时，会据此把内存分成不用的区，而对象会创建在某个区。 现在不用了，每个程序只有一个区：“默认区”，所以不用担心zone参数。
+          copy方法由NSObject实现，该方法只是以默认区为参数调用。
+
+* mutableCopy方法实际上是调用 -(id)mutableCopyWithZone:(NSZone*)zone; 实现mutableCopy操作
+
+######23. 通过委托与数据协议进行对象间通信
+这一条说的就是delegate(代理设计模式)。但是并没有说delegate的循环引用的问题,在使用代理声明一个 @property的时候，记得用weak。
+```
+@protocol PersonDelegate <NSObject>
+-(void)areYouPerson;
+@end
+
+@property (nonatomic,weak)id<PersonDelegate> pd;
+```
+
+######24. 将类的实现代码分散到便于管理的数个分类之中
+这个没啥可说的
+
+######25. 总是为第三方类的分类名称加前缀
+这个没啥可说的
+
+######26. 勿在分类中声明属性
+正常的分类是不可以声明属性的，但是从技术上说，分类里可以用runtime声明属性。
+```
+#import <objc.runtime.h>
+static const char *kFriendsPropertyKey = “kFriendsPropertyKey”;
+@implementation EOCPerson(Friendship)
+-(NSArray*)friends{
+    return objc_getAssociatedObject(self,kFriendsPropertyKey);
+}
+
+-(void)setFriends:(NSArray*)friends{
+    objc_setAssociateObject(self.kFriendsPropertyKey,friends,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+@end
+```
+这样做可行，但是不太理想，要吧相似的代码写很多遍。而且容易出现Bug，可以使用class-continuation实现分类添加属性。
+
+######27. 使用class-continuation分类隐藏实现细节
+class-continuation分类和普通的分类不同，它必须在其所接续的那个类的实现文件里。其重要之处在于，这是唯一能生命实例变量的分类，而且此分类没有特定的实现文件，其中的方法应该定义在类的主实现文件里。与其他分类不用，“class-continuation分类”没有名字，比如，有个类叫做EOCPerson，其“class-continuation分类”写法如下：
+```
+@interface EOCPerson()
+@end
+```
+我们在创建一个类的时候系统已经自动帮我们在,m中实现了，以下代码都应该很熟悉吧。
+```
+#import "ViewController.h"
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+  
+}
+@end
+```
+
+没错它就是 class-continuation分类，在此代码之间可以添加属性，修改属性。
+```
+@interface ViewController ()
+@end
+
+```
+
+使用class-continuation分类的好处
+* 可以向类中新增实例变量。
+* 如果类中的主接口声明为只读，可以再类内部修改此属性。
+* 把私有方法的原型文件生命在”class-continuation分类”里面。
+* 想使类遵循的协议不为人知，可以用“class-continuation分类”中声明。
+
+######28. 通过协议提供匿名对象
+这个没啥可说的
+说的就是这句话
+```
+@property (nonatomic,weak)id<PersonDelegate> pd;
+```
+
+######29. 理解引用计数
+理解引用计数，方便于了解iOS的内存管理。不过现在都是ARC的时代了。
+引用计数机制通过可以递增递减的计数器来管理内存。对象创建好之后，其保留计数至少为1。若保留计数为正，则对象继续存活。当保存计数降为0，对象就被销毁了。
+在对象生命期中，其余对象通过引用来保留或释放此对象。保留与释放操作分别会递增及递减保留计数。
+
+######30. 以ARC简化引用计数
+使用ARC要计数，引用计数实际上还是要执行的，只不过保留与释放操作现在由ARC自动为你添加。由于ARC会自动执行retain、release、autorelease等操作，所以直接在ARC下调用这些内存管理方法是非法的。
+ARC在调用这些方法时，并不用过普通的Objective-C消息派发机制，二十直接调用其底层C语言版本，这样做性能更好，直接调用底层函数节省很多CPU周期。
+虽然有了ARC之后无需担心内存管理问题，但是CoreFoundation对象不归ARC管理，开发者必须适时调用CFRetain/CFRelease.
+
+######31. 在dealloc方法中只释放引用并解除监听
+当一个对象销毁的时候会调用dealloc方法，但是当开销较大或系统内稀缺资源则不再此列，像是文件描述、套接字、大块内存等都属于这种资源，通常对于开销较大的资源实现一个方法，当程序用完资源对象后，就调用此方法。这样一来，资源对象的生命期就变得明确了。
+
+######32.编写“异常安全代码”时留意内存管理问题
+![](http://upload-images.jianshu.io/upload_images/1840079-21828582bf837964.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+图不重要看字。
+图片中的情景是MRC。现在已经是ARC时代了。但是在使用@try 的时候也要注意，在捕获到异常的时候@try{}中的语句执行到异常代码的那一行后不在执行，然后把异常抛给@catch。当然@finally是一定要执行的。
+如下 并没有执行代码中的NSLog(@"%@",array);
+```
+    @try {
+        NSArray *array = @[@"a",@"b",@"c"];
+        NSString *str_arr = array[4];
+        NSLog(@"%@",array);
+
+    } @catch (NSException *exception) {
+        NSLog(@"%@",exception);
+    } @finally {
+        NSLog(@"%s",__func__);
+    }
+```
+
+######33. 以弱引用避免保留环
+* unsafe_unretained 语义同assign等价。然而assign通常用于int、float、结构体等。unsafe_unretained多用于对象类型。
+* weak 与 unsafe_unretained 作用相同，然而只要系统把属性回收，属性值为nil。
+推荐使用weak，毕竟是ARC时代的产物，而且用的人也很多。
+
+######34. 以“自动释放池块”降低内存峰值
+```
+    @autoreleasepool {
+        <#statements#>
+    }
+
+    for (int i = 0; i < 1000000; i++) {
+        @autoreleasepool {
+            NSNumber *num = [NSNumber numberWithInt:i];
+            NSString *str = [NSString stringWithFormat:@"%d ", i];
+            [NSString stringWithFormat:@"%@%@", num, str];
+           
+            if(lagerNum-1 == i)
+            {
+                NSLog(@"end");
+            }
+        }
+    }
+```
+![](http://upload-images.jianshu.io/upload_images/1840079-915d124a71f596d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://upload-images.jianshu.io/upload_images/1840079-a92dfbd3dccbe0b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+由此可见我们合理运用自动释放池，可降低应用程序的内存峰值。
+
+######35. 用“僵尸对象"调试内存管理问题
+向已回收的对象发送消息是不安全的。 
+ 在左上角标题栏找到项目单击后选择 Edit scheme 勾选图中检测僵尸对象
+![](http://upload-images.jianshu.io/upload_images/1840079-f235ec86a8734f5e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+######36. 不要使用retainCount
+这个没啥可说的
+MRC时代的产物，忽略
+
+######37. 理解”块“这一概念
+这里其实就是在说block，复习一下block的语法吧
+返回值类型（block名称)(参数)
+需要注意的是 定义block时候，其所占内存区域是分配在栈中的，快只在定义它的那个范围内有效。block所使用的整个内存区域，在编译期已经完全确定，因此，全局block可以生命在全局内存里，而不需要在每次用到的时候于栈中创建，另外，全局block的拷贝是个空操作，因为全局block绝不可能为系统所回收，这种block实际上相当于单例。
+
+######38. 为常用的块类型创建typedef
+这个没啥可说的
+```
+typedef <#returnType#>(^<#name#>)(<#arguments#>);
+@property (nonatomic,copy)name nm_blk;
+```
+
+######39. 用handler块降低代码分散程度
+这条书上说的就是block的回调。只不过是把block放在方法中去使用。
+```
+//  Person.h
+#import <Foundation/Foundation.h>
+typedef void(^Blk)(NSString *name,int age);
+@interface Person : NSObject
+-(void)handler:(Blk)blk;
+@end
+
+//  Person.m
+#import "Person.h
+@implementation Person
+-(void)handler:(Blk)blk{
+    if(blk){
+        blk(@"zhangsan" ,28);
+    }
+}
+@end
+
+//  使用
+Person *per =[Person new];
+[per handler:^(NSString *name, int age) {
+     NSLog(@"%@ %d",name, age);
+}];
+```
+
+这样使用的好处是 在两个对象通信的时候可以不使用delegate，方便了代码的管理。其实这样的用法很常见，多用于封装网络请求的基类。
+
+######40. 用块引用其所属对象时不要出现保留环
+这个没啥可说的
+
+######41. 多用派发队列，少用同步锁
+派发队列可用来表述同步语义，这种做法比使用@synchronize块或NSLock对象更简单
+将同步与异步派发结合起来，可以实现与普通枷锁机制一样的同步行为，而这么做却不会阻塞执行异步派发的线程
+使用同步队列及栅栏块，可以令同步行为更加高效（不常用）
+
+######42. 多用GCD，少用performSelector系列方法
+这个没啥可说的
+
+######43. 掌握GCD及操作队列的适用时机
+这个没啥可说的 
+解决多线程与任务管理问题时，派发队列并非唯一方案
+操作队列提供了一套高层的Objective-C API 能实现纯GCD所具备的绝大部分功能，而且还完成一些更为复杂的操作，那些操作弱改用GCD来实现，则需另外编写代码。
+使用NSOperation对线程管理
+
+######44. 通过Dispatch Group机制，根据系统资源状况来执行任务
+这个没啥可说的 
+一系列任务可归入一个dispatch group之中。开发者可以在这组任务执行完毕时获得通知
+通过dispatch group，可以在并发式派发队列里同时执行多项任务。此时GCD会根据系统西苑状况来调度这些并发执行的任务。开发者若自己来实现此功能。则需要便携大量代码。
+
+
+######45. 使用dispatch_once来执行秩序运行一次的线程安全代码
+```
+static dispatch_once_t onceToken;
+dispatch_once(&onceToken, ^{
+        <#code to be executed once#>
+});
+```
+
+######46.不用使用dispatch_get_current_queue
+
+这个没啥可说的
+iOS系统6.0版本起，已经正式启用此函数了
+
+__OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_6,__MAC_10_9,__IPHONE_4_0,__IPHONE_6_0)
+DISPATCH_EXPORT DISPATCH_PURE DISPATCH_WARN_RESULT DISPATCH_NOTHROW
+dispatch_queue_t
+dispatch_get_current_queue(void);
+![](http://upload-images.jianshu.io/upload_images/1840079-bf570349140ae8bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+######47.熟悉系统框架
+打开Xcode   command + shift + 0 选择性的了解一些 Foundation、UIKit
+也可以看看这篇博客 http://www.jianshu.com/p/58bc11c800e4
+
+######48. 多用枚举，少用for循环
+因为枚举遍历的时候用的多线程（GCD并发执行），所以效率更快些。我觉得其实用什么都行。
+```
+NSArray *arr = @[@"b",@"c",@"s"];
+[arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+ }];
+```
+
+######49. 对自定义其内存管理语义的collection使用无缝桥接
+```
+NSArray *anNSArray = @[@1,@3,@5,@8];
+CFArrayRef acFArray =  (__bridge CFArrayRef)anNSArray;
+NSLog(@"%@",acFArray);
+```
+通过无缝桥接技术，可以在Foundation框架中Objective-C对象与CoreFoundation框架中的C语言数据结构之间来回转换。
+在CoreFoundation层面穿件collection时，可以指定许多回调函数，这些函数表示此collection应如何处理其元素，然后可运用无缝桥接技术，将其转换成具备特殊内存管理语义的Objective-C collection。
+
+######50. 构建缓存时选用NSCache而非NSDictionary
+NSCache胜过NSDictionary之处在于，当系统资源耗尽时，它能自动删减缓存。
+
+######51. 精简Initialize与load的实现代码
+类初始化的时候一定会调用两个方法
+```
++(void)load{}
+
++ (void)initialize
+{
+    if (self == [<#ClassName#> class]) {
+        <#statements#>
+    }
+}
+```
+- load方法只会调用一次，不管该类的头文件有没有被使用，该类都会被系统自动调用，而且只调用一次。 当然了，如果不重写这个方法的话，我们是不知道这个方法有没有被调用的。
+如果分类也重写了load方法，先调用类里的，在调用分类。
+
+- initialize 和load类似，不过在类被初始化的时候才会被调用（init之前）。需要注意的是，<#ClassName#>如果有子类继承的时候要判断类名。
+
+######52. 别忘了NSTimer会保留其目标对象
+```
+//  Person.h
+#import <Foundation/Foundation.h>
+
+@interface Person : NSObject
+@property (nonatomic,strong)NSTimer *timer;
+-(void)start;
+-(void)stop;
+@end
+
+//  Person.m
+#import "Person.h"
+@implementation Person
+
+-(void)start{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(run) userInfo:nil repeats:YES];
+}
+
+-(void)run{
+    NSLog(@"%s",__func__);
+}
+
+-(void)dealloc{
+    NSLog(@"%s",__func__);
+}
+
+-(void)stop{
+    [self.timer invalidate];
+}
+@end
+
+
+调用
+@property (nonatomic,strong)Person *person;
+
+self.person = [Person new];
+[self.person start];
+
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.person stop];
+}
+```
+
+好，那么问题来了，是不是没有调用dealloc方法，没有调用dealloc方法就说明Person对象并没有被销毁，为什么没有被销毁
+
+因为在控制器强引用了self.person，[self.person start]强引用了 self.timer; self.timer 的target指向了self（self.person）所以循环引用了。
+![](http://upload-images.jianshu.io/upload_images/1840079-efc5d33752ba9003.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+怎么解决。 NSTimer销毁的时候，把Person对象为nil即可
+```
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.person stop];
+    self.person = nil;
+}
+```
+
