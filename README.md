@@ -1,27 +1,30 @@
-This theme is designed by Xiaoying Riley at 3rd Wave Media (http://themes.3rdwavemedia.com/). Visit her website for more themes [http://themes.3rdwavemedia.com/](http://themes.3rdwavemedia.com/)
+# JBlog Jekyll Theme
 
+**[JBlog](http://alperenbozkurt.net/JBlog)** is a simple jekyll theme.
 
-I have made this into a Jekyll Theme.
-**Demo:** [http://webjeda.com/online-cv/](http://webjeda.com/online-cv/)
+I have used this theme in my own php and ruby blogs. And there are some shortcomings. If something looks extremely ugly and you can't resist to fix it, just send me a PR. I will be grateful.
 
-The default theme would look like this
+If you like this theme or using it, please give a **star** for motivation.
 
-![online cv Jekyll theme](https://github.com/sharu725/online-cv/raw/master/assets/images/online-cv-jekyll-theme.png)
+## Preview
 
-The theme is responsive
+![Home Page](/assets/img/screenshot-home.png)    
+![Post Page](/assets/img/screenshot-post.png)
 
-![online cv responsive Jekyll theme](https://github.com/sharu725/online-cv/raw/master/assets/images/online-cv-responsive-jekyll-theme.png)
+See a [live version of JBlog](http://alperenbozkurt.net/JBlog) hosted on GitHub.
 
-There are 6 color schemes available
+## Getting Started
 
-![online cv Jekyll theme](https://github.com/sharu725/online-cv/raw/master/assets/images/online-cv-jekyll-theme-2.png)
+To learn how to install and use this theme check out the [Setup Guide](http://alperenbozkurt.net/JBlog/JBlog-theme/) for more information or apply the following instructions.
 
-## Installation
-* Fork the repository
-* Go to settings and set Github Pages source as master.
-* Your new site should be ready at https://username.github.io/online-cv/
+##Installation
 
-[Watch my video on instlallation](https://www.youtube.com/embed/T2nx6tj-ZH4)
-
-
-Check out for more themes: [**Jekyll Themes**](http://jekyll-themes.com)
+- Fork the Repo
+- Edit _config.yml file.
+	- Edit url as **https**://yourusername.github.io 
+	- and others
+- Remove sample posts from _posts folder and add yours.
+- Edit index.md file in about folder.
+- Change repo name to YourUserName.github.io
+- Open "Github Pages" from settings page
+- Click the star icon at the top of this page ;)

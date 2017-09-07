@@ -1,31 +1,75 @@
-
-title: My Resume
-url: 'http://webjeda.com'
-baseurl: '/online-cv' #change it according to your repository name
-
-
-# Enable one of these styles by removing #. Style will be applied only after restarting the build or serve.
-#style: styles-2
-#style: styles-3
-#style: styles-4
-#style: styles-5
-#style: styles-6
+# Site
+title:          JBlog
+bio:            'Just a simple Jekyll theme'
+description:    "JBlog is a minimal, one column and blue jekyll theme for your blog."
+picture:        'assets/img/profile.png'
+locale:         en_US
+url:            https://alperenbozkurt.github.io/JBlog
 
 
-#Profile information
-name: Alan Doe
-tagline: Full Stack Developer
-pic: profile.png  #place a 100x100 picture inside /assets/images/ folder and provide the name of the file below
+# Jekyll
+permalink:      /:title/
+markdown:       kramdown
+highlighter:    rouge
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  enable_coderay: false
+sass:
+  sass_dir: _sass
+  style: compressed
 
-#sidebar links
-email: hello@webjeda.com
-phone: 012 345 6789
-website: blog.webjeda.com #do not add http://
-linkedin: alandoe
-github: sharu725
-twitter: '@webjeda'
+# Social
+# if you don't have any of social below, comment the line.
+#email:
+twitter: username
+facebook: username
+#google:
+  #plus: #username
+  #analytics:
+  #verify:
+  #ad-client:
+  #ad-slot:
+#bing-verify:
+github: username
+stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+linkedin: username
+#xing: username
+instagram: username
+lastfm: username
+tumblr: username
+#pinterest: username
+#foursquare: username
+steam: username
+#dribbble: username
+youtube: username
+#soundcloud: username
+#weibo: username
+#flickr: username
+#codepen: username
+
+# Paginate
+# if you don't need pagination, comment the *paginate* configs below
+# paginate: 5
+# paginate_path: "blog/:num/"
 
 
-# Tracker
-analytics: UA-83979019-1
-#Update all the sections by editing the files inside _includes folder.
+# Comments
+disqus_shortname: alperenbozkurt-net
+
+
+# Gems
+gems:
+  - jekyll-mentions
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-paginate
+
+jekyll-mentions:
+    base_url: https://github.com
+
+# Exclude list
+exclude: [README.md, Gemfile, Gemfile.lock, node_modules, gulpfile.js, package.json, _site, src, vendor, CNAME, LICENSE, Rakefile]
