@@ -1,75 +1,31 @@
-# Site
-title:          JBlog
-bio:            'Just a simple Jekyll theme'
-description:    "JBlog is a minimal, one column and blue jekyll theme for your blog."
-picture:        'assets/img/profile.png'
-locale:         en_US
-url:            https://alperenbozkurt.github.io/JBlog
+# top level stuff you probably don't need to touch
+highlighter: rouge
+markdown: kramdown
+rdiscount:
+  extensions: [smart]
+permalink: /:title.html
+paginate: 5
+gems: [jekyll-paginate]
+port: 3000
+safe: true
 
 
-# Jekyll
-permalink:      /:title/
-markdown:       kramdown
-highlighter:    rouge
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  enable_coderay: false
-sass:
-  sass_dir: _sass
-  style: compressed
-
-# Social
-# if you don't have any of social below, comment the line.
-#email:
+# edit here to achieve your personal greatness
+url: http://username.github.io/
+baseurl: /sustain/
+title: Chris Turner
+author: Chris Turner
+description: Personal blog and resume
+avatar: profile.png
+email: yourname@email.com
+github: biomadeira/sustain # username
 twitter: username
-facebook: username
-#google:
-  #plus: #username
-  #analytics:
-  #verify:
-  #ad-client:
-  #ad-slot:
-#bing-verify:
-github: username
-stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
 linkedin: username
-#xing: username
-instagram: username
-lastfm: username
-tumblr: username
-#pinterest: username
-#foursquare: username
-steam: username
-#dribbble: username
-youtube: username
-#soundcloud: username
-#weibo: username
-#flickr: username
-#codepen: username
-
-# Paginate
-# if you don't need pagination, comment the *paginate* configs below
-# paginate: 5
-# paginate_path: "blog/:num/"
+stackoverflow: username   #e.g: users/2735833/proton1h1
+#Comment out if you don't want disqus 
+disqus: username
+google_analytics: UA-69391421-1
 
 
-# Comments
-disqus_shortname: alperenbozkurt-net
-
-
-# Gems
-gems:
-  - jekyll-mentions
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-paginate
-
-jekyll-mentions:
-    base_url: https://github.com
-
-# Exclude list
-exclude: [README.md, Gemfile, Gemfile.lock, node_modules, gulpfile.js, package.json, _site, src, vendor, CNAME, LICENSE, Rakefile]
+# needed for travis-ci build
+exclude: [vendor]
