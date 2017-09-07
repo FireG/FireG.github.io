@@ -1,34 +1,31 @@
-# Site settings
-email: 
-baseurl: ""
-paginate: 5
-paginate_path: "/blog/page-:num"
-google_analytics: 
 
-# SEO settings
-title: FireG
-description: 不至于
-url: ""
-twitter_username: 
-default_img: 
+title: My Resume
+url: 'http://webjeda.com'
+baseurl: '/online-cv' #change it according to your repository name
 
-# Profile settings
-name: Profile Name
-profile_img: 
-profile: 
-social:
-  github: 
 
-# Build settings
-exclude: ["_screenshots", "Gemfile", "Gemfile.lock", "LICENSE.txt", "README.md"]
-markdown: kramdown
-permalink: /:year/:month/:day/:title/
+# Enable one of these styles by removing #. Style will be applied only after restarting the build or serve.
+#style: styles-2
+#style: styles-3
+#style: styles-4
+#style: styles-5
+#style: styles-6
 
-# Sass
-sass:
-  style: compressed
 
-# Gems
-gems: [jekyll-paginate, jekyll-sitemap, octopress-autoprefixer]
+#Profile information
+name: Alan Doe
+tagline: Full Stack Developer
+pic: profile.png  #place a 100x100 picture inside /assets/images/ folder and provide the name of the file below
 
-theme: jekyll-theme-cayman
+#sidebar links
+email: hello@webjeda.com
+phone: 012 345 6789
+website: blog.webjeda.com #do not add http://
+linkedin: alandoe
+github: sharu725
+twitter: '@webjeda'
+
+
+# Tracker
+analytics: UA-83979019-1
+#Update all the sections by editing the files inside _includes folder.
